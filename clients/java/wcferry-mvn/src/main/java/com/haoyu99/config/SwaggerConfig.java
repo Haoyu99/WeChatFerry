@@ -1,4 +1,4 @@
-package com.iamteer.config;
+package com.haoyu99.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * 配置类-swagger
- * http://localhost:9201/swagger-ui/index.html
+ * http://localhost:8080/swagger-ui/index.html
  *
  * @author chandler
  * @date 2024-09-24 22:13
@@ -26,7 +26,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
             // 替换为您的Controller所在的包路径
-            .apis(RequestHandlerSelectors.basePackage("com.iamteer.controller"))
+            .apis(RequestHandlerSelectors.basePackage("com.haoyu99.controller"))
             // 地址
             .paths(PathSelectors.any()).build().apiInfo(apiInfo());
     }

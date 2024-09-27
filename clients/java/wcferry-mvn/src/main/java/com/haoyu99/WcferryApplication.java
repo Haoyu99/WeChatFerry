@@ -1,4 +1,4 @@
-package com.iamteer;
+package com.haoyu99;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

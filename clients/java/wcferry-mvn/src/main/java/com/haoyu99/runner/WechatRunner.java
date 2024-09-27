@@ -1,4 +1,4 @@
-package com.iamteer.runner;
+package com.haoyu99.runner;
 
 import javax.annotation.Resource;
 
@@ -6,8 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.iamteer.Client;
-import com.iamteer.config.WcferryProperties;
+import com.haoyu99.Client;
+import com.haoyu99.config.WcferryProperties;
 
 import lombok.extern.slf4j.Slf4j;
 

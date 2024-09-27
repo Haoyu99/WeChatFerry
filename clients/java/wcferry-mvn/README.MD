@@ -40,7 +40,7 @@
 # 本服务参数
 wcferry:
   # DLL文件位置
-  dll-path: E:\WeChatFerry\clients\java\wcferry-mvn\dll\sdk.dll
+  dll-path: D:\wechatferry\WeChatFerry\clients\java\wcferry-mvn\dll\sdk.dll
   # socket端口
   socket-port: 10086
 ```

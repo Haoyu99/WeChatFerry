@@ -1,4 +1,4 @@
-package com.iamteer;
+package com.haoyu99;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -8,41 +8,26 @@ import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import com.iamteer.service.SDK;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.haoyu99.proto.Wcf;
+import com.haoyu99.service.SDK;
+import lombok.extern.slf4j.Slf4j;
 
-import com.iamteer.entity.Wcf;
-import com.iamteer.entity.Wcf.DbQuery;
-import com.iamteer.entity.Wcf.DbRow;
-import com.iamteer.entity.Wcf.DbTable;
-import com.iamteer.entity.Wcf.DecPath;
-import com.iamteer.entity.Wcf.Functions;
-import com.iamteer.entity.Wcf.MemberMgmt;
-import com.iamteer.entity.Wcf.Request;
-import com.iamteer.entity.Wcf.Response;
-import com.iamteer.entity.Wcf.RpcContact;
-import com.iamteer.entity.Wcf.UserInfo;
-import com.iamteer.entity.Wcf.Verification;
-import com.iamteer.entity.Wcf.WxMsg;
 import com.sun.jna.Native;
 
 import io.sisu.nng.Socket;
 import io.sisu.nng.pair.Pair1Socket;
-
+@Slf4j
 public class Client {
-
-    private static final Logger logger = LoggerFactory.getLogger(Client.class);
     private static final int BUFFER_SIZE = 16 * 1024 * 1024; // 16M
     private Socket cmdSocket = null;
     private Socket msgSocket = null;
-    private static String DEFAULT_HOST = "127.0.0.1";
-    private static int PORT = 10086;
+    private static final String DEFAULT_HOST = "127.0.0.1";
+    private static final int PORT = 10086;
     private static String CMDURL = "tcp://%s:%s";
-    private static String DEFAULT_DLL_PATH = System.getProperty("user.dir") + "\\dll\\sdk.dll";
+    private static final String DEFAULT_DLL_PATH = System.getProperty("user.dir") + "\\dll\\sdk.dll";
     private boolean isReceivingMsg = false;
     private boolean isLocalHostPort = false;
-    private BlockingQueue<WxMsg> msgQ;
+    private BlockingQueue<Wcf.WxMsg> msgQ;
 
     private String host;
     private int port;
@@ -64,7 +49,7 @@ public class Client {
         SDK INSTANCE = Native.load(dllPath, SDK.class);
         int status = INSTANCE.WxInitSDK(debug, port);
         if (status != 0) {
-            logger.error("启动 RPC 失败: {}", status);
+            log.error("启动 RPC 失败: {}", status);
             System.exit(-1);
         }
         connectRPC(String.format(CMDURL, host, port), INSTANCE);
@@ -82,11 +67,11 @@ public class Client {
                 waitMs(1000);
             }
         } catch (Exception e) {
-            logger.error("连接 RPC 失败: ", e);
+            log.error("连接 RPC 失败: ", e);
             System.exit(-1);
         }
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.info("关闭...");
+            log.info("关闭...");
             diableRecvMsg();
             if (isLocalHostPort) {
                 INSTANCE.WxDestroySDK();
@@ -94,15 +79,15 @@ public class Client {
         }));
     }
 
-    private Response sendCmd(Request req) {
+    private Wcf.Response sendCmd(Wcf.Request req) {
         try {
             ByteBuffer bb = ByteBuffer.wrap(req.toByteArray());
             cmdSocket.send(bb);
             ByteBuffer ret = ByteBuffer.allocate(BUFFER_SIZE);
             long size = cmdSocket.receive(ret, true);
-            return Response.parseFrom(Arrays.copyOfRange(ret.array(), 0, (int)size));
+            return Wcf.Response.parseFrom(Arrays.copyOfRange(ret.array(), 0, (int)size));
         } catch (Exception e) {
-            logger.error("命令调用失败: ", e);
+            log.error("命令调用失败: ", e);
             return null;
         }
     }
@@ -113,8 +98,8 @@ public class Client {
      * @return
      */
     public boolean isLogin() {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_IS_LOGIN_VALUE).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_IS_LOGIN_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getStatus() == 1;
         }
@@ -127,8 +112,8 @@ public class Client {
      * @return
      */
     public String getSelfWxid() {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_GET_SELF_WXID_VALUE).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_SELF_WXID_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getStr();
         }
@@ -142,8 +127,8 @@ public class Client {
      * @return
      */
     public Map<Integer, String> getMsgTypes() {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_GET_MSG_TYPES_VALUE).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_MSG_TYPES_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getTypes().getTypesMap();
         }
@@ -161,9 +146,9 @@ public class Client {
      *
      * @return
      */
-    public List<RpcContact> getContacts() {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_GET_CONTACTS_VALUE).build();
-        Response rsp = sendCmd(req);
+    public List<Wcf.RpcContact> getContacts() {
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_CONTACTS_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getContacts().getContactsList();
         }
@@ -178,10 +163,10 @@ public class Client {
      * @param sql 执行的sql语句
      * @return
      */
-    public List<DbRow> querySql(String db, String sql) {
-        DbQuery dbQuery = DbQuery.newBuilder().setSql(sql).setDb(db).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_EXEC_DB_QUERY_VALUE).setQuery(dbQuery).build();
-        Response rsp = sendCmd(req);
+    public List<Wcf.DbRow> querySql(String db, String sql) {
+        Wcf.DbQuery dbQuery = Wcf.DbQuery.newBuilder().setSql(sql).setDb(db).build();
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_EXEC_DB_QUERY_VALUE).setQuery(dbQuery).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getRows().getRowsList();
         }
@@ -194,8 +179,8 @@ public class Client {
      * @return
      */
     public List<String> getDbNames() {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_GET_DB_NAMES_VALUE).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_DB_NAMES_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getDbs().getNamesList();
         }
@@ -210,11 +195,11 @@ public class Client {
      * @return
      */
     public Map<String, String> getDbTables(String db) {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_GET_DB_TABLES_VALUE).setStr(db).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_DB_TABLES_VALUE).setStr(db).build();
+        Wcf.Response rsp = sendCmd(req);
         Map<String, String> tables = new HashMap<>();
         if (rsp != null) {
-            for (DbTable tbl : rsp.getTables().getTablesList()) {
+            for (Wcf.DbTable tbl : rsp.getTables().getTablesList()) {
                 tables.put(tbl.getName(), tbl.getSql());
             }
         }
@@ -236,9 +221,9 @@ public class Client {
      **/
     public int sendText(String msg, String receiver, String aters) {
         Wcf.TextMsg textMsg = Wcf.TextMsg.newBuilder().setMsg(msg).setReceiver(receiver).setAters(aters).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_SEND_TXT_VALUE).setTxt(textMsg).build();
-        logger.debug("sendText: {}", bytesToHex(req.toByteArray()));
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_TXT_VALUE).setTxt(textMsg).build();
+        log.debug("sendText: {}", bytesToHex(req.toByteArray()));
+        Wcf.Response rsp = sendCmd(req);
         int ret = -1;
         if (rsp != null) {
             ret = rsp.getStatus();
@@ -256,9 +241,9 @@ public class Client {
      */
     public int sendImage(String path, String receiver) {
         Wcf.PathMsg pathMsg = Wcf.PathMsg.newBuilder().setPath(path).setReceiver(receiver).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_SEND_IMG_VALUE).setFile(pathMsg).build();
-        logger.debug("sendImage: {}", bytesToHex(req.toByteArray()));
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_IMG_VALUE).setFile(pathMsg).build();
+        log.debug("sendImage: {}", bytesToHex(req.toByteArray()));
+        Wcf.Response rsp = sendCmd(req);
         int ret = -1;
         if (rsp != null) {
             ret = rsp.getStatus();
@@ -276,9 +261,9 @@ public class Client {
      */
     public int sendFile(String path, String receiver) {
         Wcf.PathMsg pathMsg = Wcf.PathMsg.newBuilder().setPath(path).setReceiver(receiver).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_SEND_FILE_VALUE).setFile(pathMsg).build();
-        logger.debug("sendFile: {}", bytesToHex(req.toByteArray()));
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_FILE_VALUE).setFile(pathMsg).build();
+        log.debug("sendFile: {}", bytesToHex(req.toByteArray()));
+        Wcf.Response rsp = sendCmd(req);
         int ret = -1;
         if (rsp != null) {
             ret = rsp.getStatus();
@@ -298,9 +283,9 @@ public class Client {
      */
     public int sendXml(String receiver, String xml, String path, int type) {
         Wcf.XmlMsg xmlMsg = Wcf.XmlMsg.newBuilder().setContent(xml).setReceiver(receiver).setPath(path).setType(type).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_SEND_XML_VALUE).setXml(xmlMsg).build();
-        logger.debug("sendXml: {}", bytesToHex(req.toByteArray()));
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_XML_VALUE).setXml(xmlMsg).build();
+        log.debug("sendXml: {}", bytesToHex(req.toByteArray()));
+        Wcf.Response rsp = sendCmd(req);
         int ret = -1;
         if (rsp != null) {
             ret = rsp.getStatus();
@@ -318,9 +303,9 @@ public class Client {
      */
     public int sendEmotion(String path, String receiver) {
         Wcf.PathMsg pathMsg = Wcf.PathMsg.newBuilder().setPath(path).setReceiver(receiver).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_SEND_EMOTION_VALUE).setFile(pathMsg).build();
-        logger.debug("sendEmotion: {}", bytesToHex(req.toByteArray()));
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_EMOTION_VALUE).setFile(pathMsg).build();
+        log.debug("sendEmotion: {}", bytesToHex(req.toByteArray()));
+        Wcf.Response rsp = sendCmd(req);
         int ret = -1;
         if (rsp != null) {
             ret = rsp.getStatus();
@@ -338,9 +323,9 @@ public class Client {
      */
     public int acceptNewFriend(String v3, String v4) {
         int ret = -1;
-        Verification verification = Verification.newBuilder().setV3(v3).setV4(v4).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_ACCEPT_FRIEND_VALUE).setV(verification).build();
-        Response rsp = sendCmd(req);
+        Wcf.Verification verification = Wcf.Verification.newBuilder().setV3(v3).setV4(v4).build();
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_ACCEPT_FRIEND_VALUE).setV(verification).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             ret = rsp.getStatus();
         }
@@ -356,9 +341,9 @@ public class Client {
      */
     public int addChatroomMembers(String roomID, String wxIds) {
         int ret = -1;
-        MemberMgmt memberMgmt = MemberMgmt.newBuilder().setRoomid(roomID).setWxids(wxIds).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_ADD_ROOM_MEMBERS_VALUE).setM(memberMgmt).build();
-        Response rsp = sendCmd(req);
+        Wcf.MemberMgmt memberMgmt = Wcf.MemberMgmt.newBuilder().setRoomid(roomID).setWxids(wxIds).build();
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_ADD_ROOM_MEMBERS_VALUE).setM(memberMgmt).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             ret = rsp.getStatus();
         }
@@ -374,9 +359,9 @@ public class Client {
      */
     public boolean decryptImage(String srcPath, String dstPath) {
         int ret = -1;
-        DecPath build = DecPath.newBuilder().setSrc(srcPath).setDst(dstPath).build();
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_DECRYPT_IMAGE_VALUE).setDec(build).build();
-        Response rsp = sendCmd(req);
+        Wcf.DecPath build = Wcf.DecPath.newBuilder().setSrc(srcPath).setDst(dstPath).build();
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_DECRYPT_IMAGE_VALUE).setDec(build).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             ret = rsp.getStatus();
         }
@@ -388,9 +373,9 @@ public class Client {
      *
      * @return 个人信息
      */
-    public UserInfo getUserInfo() {
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_GET_USER_INFO_VALUE).build();
-        Response rsp = sendCmd(req);
+    public Wcf.UserInfo getUserInfo() {
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_USER_INFO_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             return rsp.getUi();
         }
@@ -401,7 +386,7 @@ public class Client {
         return isReceivingMsg;
     }
 
-    public WxMsg getMsg() {
+    public Wcf.WxMsg getMsg() {
         try {
             return msgQ.take();
         } catch (Exception e) {
@@ -432,14 +417,14 @@ public class Client {
             msgSocket.dial(url);
             msgSocket.setReceiveTimeout(2000); // 2 秒超时
         } catch (Exception e) {
-            logger.error("创建消息 RPC 失败", e);
+            log.error("创建消息 RPC 失败", e);
             return;
         }
         ByteBuffer bb = ByteBuffer.allocate(BUFFER_SIZE);
         while (isReceivingMsg) {
             try {
                 long size = msgSocket.receive(bb, true);
-                WxMsg wxMsg = Response.parseFrom(Arrays.copyOfRange(bb.array(), 0, (int)size)).getWxmsg();
+                Wcf.WxMsg wxMsg = Wcf.Response.parseFrom(Arrays.copyOfRange(bb.array(), 0, (int)size)).getWxmsg();
                 msgQ.put(wxMsg);
             } catch (Exception e) {
                 // 多半是超时，忽略吧
@@ -448,7 +433,7 @@ public class Client {
         try {
             msgSocket.close();
         } catch (Exception e) {
-            logger.error("关闭连接失败", e);
+            log.error("关闭连接失败", e);
         }
     }
 
@@ -457,10 +442,10 @@ public class Client {
             return;
         }
 
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_ENABLE_RECV_TXT_VALUE).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_ENABLE_RECV_TXT_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp == null) {
-            logger.error("启动消息接收失败");
+            log.error("启动消息接收失败");
             isReceivingMsg = false;
             return;
         }
@@ -477,8 +462,8 @@ public class Client {
             return 1;
         }
         int ret = -1;
-        Request req = Request.newBuilder().setFuncValue(Functions.FUNC_DISABLE_RECV_TXT_VALUE).build();
-        Response rsp = sendCmd(req);
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_DISABLE_RECV_TXT_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             ret = rsp.getStatus();
             if (ret == 0) {
@@ -497,8 +482,8 @@ public class Client {
         }
     }
 
-    public void printContacts(List<RpcContact> contacts) {
-        for (RpcContact c : contacts) {
+    public void printContacts(List<Wcf.RpcContact> contacts) {
+        for (Wcf.RpcContact c : contacts) {
             int value = c.getGender();
             String gender;
             if (value == 1) {
@@ -509,12 +494,12 @@ public class Client {
                 gender = "未知";
             }
 
-            logger.info("{}, {}, {}, {}, {}, {}, {}", c.getWxid(), c.getName(), c.getCode(), c.getCountry(), c.getProvince(), c.getCity(), gender);
+            log.info("{}, {}, {}, {}, {}, {}, {}", c.getWxid(), c.getName(), c.getCode(), c.getCountry(), c.getProvince(), c.getCity(), gender);
         }
     }
 
-    public void printWxMsg(WxMsg msg) {
-        logger.info("{}[{}]:{}:{}:{}\n{}", msg.getSender(), msg.getRoomid(), msg.getId(), msg.getType(),
+    public void printWxMsg(Wcf.WxMsg msg) {
+        log.info("{}[{}]:{}:{}:{}\n{}", msg.getSender(), msg.getRoomid(), msg.getId(), msg.getType(),
             msg.getXml().replace("\n", "").replace("\t", ""), msg.getContent());
     }
 

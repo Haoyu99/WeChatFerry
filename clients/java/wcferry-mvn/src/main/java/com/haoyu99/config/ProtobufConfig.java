@@ -1,4 +1,4 @@
-package com.iamteer.config;
+package com.haoyu99.config;
 
 import java.util.Collections;
 

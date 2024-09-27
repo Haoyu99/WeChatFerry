@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package wcf;
-option java_package = "com.iamteer.entity";
+option java_package = "com.haoyu99.proto";
 
 enum Functions {
     FUNC_RESERVED         = 0x00;
