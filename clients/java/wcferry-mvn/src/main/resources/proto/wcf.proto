@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 package wcf;
 option java_package = "com.haoyu99.proto";
 

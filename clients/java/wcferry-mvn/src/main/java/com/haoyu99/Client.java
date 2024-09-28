@@ -126,7 +126,7 @@ public class Client {
      *
      * @return
      */
-    public Map<Integer, String> getMsgTypes() {
+     public Map<Integer, String> getMsgTypes() {
         Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_MSG_TYPES_VALUE).build();
         Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
@@ -411,6 +411,14 @@ public class Client {
         return false;
     }
 
+
+    /**
+     * 开启消息接收通道 将消息输入到队列
+     * @author haoyu99
+     * @date 2024/9/28 1:38
+     * @param url
+     */
+
     private void listenMsg(String url) {
         try {
             msgSocket = new Pair1Socket();
@@ -437,6 +445,13 @@ public class Client {
         }
     }
 
+    /**
+     * 开启消息接收
+     * @author haoyu99
+     * @date 2024/9/28 1:39
+     * @param qSize
+     */
+
     public void enableRecvMsg(int qSize) {
         if (isReceivingMsg) {
             return;
@@ -453,9 +468,17 @@ public class Client {
         isReceivingMsg = true;
         msgQ = new ArrayBlockingQueue<>(qSize);
         String msgUrl = "tcp://" + this.host + ":" + (this.port + 1);
+//        TODO: 在这里增加对于消息的处理逻辑 ,listenMsg 只是将msg输入到队列中
         Thread thread = new Thread(() -> listenMsg(msgUrl));
         thread.start();
     }
+
+    /**
+     * 关闭消息接收
+     * @author haoyu99
+     * @date 2024/9/28 1:40
+     * @return int
+     */
 
     public int diableRecvMsg() {
         if (!isReceivingMsg) {
@@ -515,6 +538,11 @@ public class Client {
         while (true) {
             waitMs(1000);
         }
+    }
+
+    public void getRoomMembers() {
+        List<Wcf.DbRow> dbRows = querySql("MicroMsg.db", "SELECT * FROM Contact;");
+        System.out.println(dbRows);
     }
 
 }
