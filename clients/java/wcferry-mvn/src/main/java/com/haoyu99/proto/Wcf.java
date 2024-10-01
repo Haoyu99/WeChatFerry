@@ -31485,6 +31485,1998 @@ java.lang.String defaultValue) {
 
   }
 
+  public interface RoomDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:wcf.RoomData)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    java.util.List<com.haoyu99.proto.Wcf.RoomData.RoomMember> 
+        getMembersList();
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    com.haoyu99.proto.Wcf.RoomData.RoomMember getMembers(int index);
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    int getMembersCount();
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    java.util.List<? extends com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder> 
+        getMembersOrBuilderList();
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder getMembersOrBuilder(
+        int index);
+
+    /**
+     * <code>int32 field_2 = 2;</code>
+     * @return The field2.
+     */
+    int getField2();
+
+    /**
+     * <code>int32 field_3 = 3;</code>
+     * @return The field3.
+     */
+    int getField3();
+
+    /**
+     * <code>int32 field_4 = 4;</code>
+     * @return The field4.
+     */
+    int getField4();
+
+    /**
+     * <code>int32 room_capacity = 5;</code>
+     * @return The roomCapacity.
+     */
+    int getRoomCapacity();
+
+    /**
+     * <code>int32 field_6 = 6;</code>
+     * @return The field6.
+     */
+    int getField6();
+
+    /**
+     * <code>int64 field_7 = 7;</code>
+     * @return The field7.
+     */
+    long getField7();
+
+    /**
+     * <code>int64 field_8 = 8;</code>
+     * @return The field8.
+     */
+    long getField8();
+  }
+  /**
+   * Protobuf type {@code wcf.RoomData}
+   */
+  public static final class RoomData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:wcf.RoomData)
+      RoomDataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RoomData.newBuilder() to construct.
+    private RoomData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RoomData() {
+      members_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RoomData();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.haoyu99.proto.Wcf.RoomData.class, com.haoyu99.proto.Wcf.RoomData.Builder.class);
+    }
+
+    public interface RoomMemberOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:wcf.RoomData.RoomMember)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>string wxid = 1;</code>
+       * @return The wxid.
+       */
+      java.lang.String getWxid();
+      /**
+       * <code>string wxid = 1;</code>
+       * @return The bytes for wxid.
+       */
+      com.google.protobuf.ByteString
+          getWxidBytes();
+
+      /**
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      java.lang.String getName();
+      /**
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      com.google.protobuf.ByteString
+          getNameBytes();
+
+      /**
+       * <code>int32 state = 3;</code>
+       * @return The state.
+       */
+      int getState();
+    }
+    /**
+     * Protobuf type {@code wcf.RoomData.RoomMember}
+     */
+    public static final class RoomMember extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:wcf.RoomData.RoomMember)
+        RoomMemberOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use RoomMember.newBuilder() to construct.
+      private RoomMember(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private RoomMember() {
+        wxid_ = "";
+        name_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new RoomMember();
+      }
+
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_RoomMember_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_RoomMember_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.haoyu99.proto.Wcf.RoomData.RoomMember.class, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder.class);
+      }
+
+      public static final int WXID_FIELD_NUMBER = 1;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object wxid_ = "";
+      /**
+       * <code>string wxid = 1;</code>
+       * @return The wxid.
+       */
+      @java.lang.Override
+      public java.lang.String getWxid() {
+        java.lang.Object ref = wxid_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          wxid_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string wxid = 1;</code>
+       * @return The bytes for wxid.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getWxidBytes() {
+        java.lang.Object ref = wxid_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          wxid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int NAME_FIELD_NUMBER = 2;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object name_ = "";
+      /**
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      @java.lang.Override
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int STATE_FIELD_NUMBER = 3;
+      private int state_ = 0;
+      /**
+       * <code>int32 state = 3;</code>
+       * @return The state.
+       */
+      @java.lang.Override
+      public int getState() {
+        return state_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(wxid_)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, wxid_);
+        }
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+        }
+        if (state_ != 0) {
+          output.writeInt32(3, state_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(wxid_)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, wxid_);
+        }
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+        }
+        if (state_ != 0) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(3, state_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof com.haoyu99.proto.Wcf.RoomData.RoomMember)) {
+          return super.equals(obj);
+        }
+        com.haoyu99.proto.Wcf.RoomData.RoomMember other = (com.haoyu99.proto.Wcf.RoomData.RoomMember) obj;
+
+        if (!getWxid()
+            .equals(other.getWxid())) return false;
+        if (!getName()
+            .equals(other.getName())) return false;
+        if (getState()
+            != other.getState()) return false;
+        if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + WXID_FIELD_NUMBER;
+        hash = (53 * hash) + getWxid().hashCode();
+        hash = (37 * hash) + NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getName().hashCode();
+        hash = (37 * hash) + STATE_FIELD_NUMBER;
+        hash = (53 * hash) + getState();
+        hash = (29 * hash) + getUnknownFields().hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(com.haoyu99.proto.Wcf.RoomData.RoomMember prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code wcf.RoomData.RoomMember}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:wcf.RoomData.RoomMember)
+          com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_RoomMember_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_RoomMember_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  com.haoyu99.proto.Wcf.RoomData.RoomMember.class, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder.class);
+        }
+
+        // Construct using com.haoyu99.proto.Wcf.RoomData.RoomMember.newBuilder()
+        private Builder() {
+
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          bitField0_ = 0;
+          wxid_ = "";
+          name_ = "";
+          state_ = 0;
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_RoomMember_descriptor;
+        }
+
+        @java.lang.Override
+        public com.haoyu99.proto.Wcf.RoomData.RoomMember getDefaultInstanceForType() {
+          return com.haoyu99.proto.Wcf.RoomData.RoomMember.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public com.haoyu99.proto.Wcf.RoomData.RoomMember build() {
+          com.haoyu99.proto.Wcf.RoomData.RoomMember result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public com.haoyu99.proto.Wcf.RoomData.RoomMember buildPartial() {
+          com.haoyu99.proto.Wcf.RoomData.RoomMember result = new com.haoyu99.proto.Wcf.RoomData.RoomMember(this);
+          if (bitField0_ != 0) { buildPartial0(result); }
+          onBuilt();
+          return result;
+        }
+
+        private void buildPartial0(com.haoyu99.proto.Wcf.RoomData.RoomMember result) {
+          int from_bitField0_ = bitField0_;
+          if (((from_bitField0_ & 0x00000001) != 0)) {
+            result.wxid_ = wxid_;
+          }
+          if (((from_bitField0_ & 0x00000002) != 0)) {
+            result.name_ = name_;
+          }
+          if (((from_bitField0_ & 0x00000004) != 0)) {
+            result.state_ = state_;
+          }
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.haoyu99.proto.Wcf.RoomData.RoomMember) {
+            return mergeFrom((com.haoyu99.proto.Wcf.RoomData.RoomMember)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(com.haoyu99.proto.Wcf.RoomData.RoomMember other) {
+          if (other == com.haoyu99.proto.Wcf.RoomData.RoomMember.getDefaultInstance()) return this;
+          if (!other.getWxid().isEmpty()) {
+            wxid_ = other.wxid_;
+            bitField0_ |= 0x00000001;
+            onChanged();
+          }
+          if (!other.getName().isEmpty()) {
+            name_ = other.name_;
+            bitField0_ |= 0x00000002;
+            onChanged();
+          }
+          if (other.getState() != 0) {
+            setState(other.getState());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          if (extensionRegistry == null) {
+            throw new java.lang.NullPointerException();
+          }
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                case 10: {
+                  wxid_ = input.readStringRequireUtf8();
+                  bitField0_ |= 0x00000001;
+                  break;
+                } // case 10
+                case 18: {
+                  name_ = input.readStringRequireUtf8();
+                  bitField0_ |= 0x00000002;
+                  break;
+                } // case 18
+                case 24: {
+                  state_ = input.readInt32();
+                  bitField0_ |= 0x00000004;
+                  break;
+                } // case 24
+                default: {
+                  if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                    done = true; // was an endgroup tag
+                  }
+                  break;
+                } // default:
+              } // switch (tag)
+            } // while (!done)
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.unwrapIOException();
+          } finally {
+            onChanged();
+          } // finally
+          return this;
+        }
+        private int bitField0_;
+
+        private java.lang.Object wxid_ = "";
+        /**
+         * <code>string wxid = 1;</code>
+         * @return The wxid.
+         */
+        public java.lang.String getWxid() {
+          java.lang.Object ref = wxid_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            wxid_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string wxid = 1;</code>
+         * @return The bytes for wxid.
+         */
+        public com.google.protobuf.ByteString
+            getWxidBytes() {
+          java.lang.Object ref = wxid_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            wxid_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string wxid = 1;</code>
+         * @param value The wxid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setWxid(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          wxid_ = value;
+          bitField0_ |= 0x00000001;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string wxid = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearWxid() {
+          wxid_ = getDefaultInstance().getWxid();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string wxid = 1;</code>
+         * @param value The bytes for wxid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setWxidBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          checkByteStringIsUtf8(value);
+          wxid_ = value;
+          bitField0_ |= 0x00000001;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object name_ = "";
+        /**
+         * <code>string name = 2;</code>
+         * @return The name.
+         */
+        public java.lang.String getName() {
+          java.lang.Object ref = name_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            name_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string name = 2;</code>
+         * @return The bytes for name.
+         */
+        public com.google.protobuf.ByteString
+            getNameBytes() {
+          java.lang.Object ref = name_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            name_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string name = 2;</code>
+         * @param value The name to set.
+         * @return This builder for chaining.
+         */
+        public Builder setName(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          name_ = value;
+          bitField0_ |= 0x00000002;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string name = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearName() {
+          name_ = getDefaultInstance().getName();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string name = 2;</code>
+         * @param value The bytes for name to set.
+         * @return This builder for chaining.
+         */
+        public Builder setNameBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          checkByteStringIsUtf8(value);
+          name_ = value;
+          bitField0_ |= 0x00000002;
+          onChanged();
+          return this;
+        }
+
+        private int state_ ;
+        /**
+         * <code>int32 state = 3;</code>
+         * @return The state.
+         */
+        @java.lang.Override
+        public int getState() {
+          return state_;
+        }
+        /**
+         * <code>int32 state = 3;</code>
+         * @param value The state to set.
+         * @return This builder for chaining.
+         */
+        public Builder setState(int value) {
+
+          state_ = value;
+          bitField0_ |= 0x00000004;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int32 state = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearState() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          state_ = 0;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:wcf.RoomData.RoomMember)
+      }
+
+      // @@protoc_insertion_point(class_scope:wcf.RoomData.RoomMember)
+      private static final com.haoyu99.proto.Wcf.RoomData.RoomMember DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new com.haoyu99.proto.Wcf.RoomData.RoomMember();
+      }
+
+      public static com.haoyu99.proto.Wcf.RoomData.RoomMember getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<RoomMember>
+          PARSER = new com.google.protobuf.AbstractParser<RoomMember>() {
+        @java.lang.Override
+        public RoomMember parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          Builder builder = newBuilder();
+          try {
+            builder.mergeFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(builder.buildPartial());
+          } catch (com.google.protobuf.UninitializedMessageException e) {
+            throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                .setUnfinishedMessage(builder.buildPartial());
+          }
+          return builder.buildPartial();
+        }
+      };
+
+      public static com.google.protobuf.Parser<RoomMember> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<RoomMember> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.haoyu99.proto.Wcf.RoomData.RoomMember getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int MEMBERS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<com.haoyu99.proto.Wcf.RoomData.RoomMember> members_;
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.haoyu99.proto.Wcf.RoomData.RoomMember> getMembersList() {
+      return members_;
+    }
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder> 
+        getMembersOrBuilderList() {
+      return members_;
+    }
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    @java.lang.Override
+    public int getMembersCount() {
+      return members_.size();
+    }
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    @java.lang.Override
+    public com.haoyu99.proto.Wcf.RoomData.RoomMember getMembers(int index) {
+      return members_.get(index);
+    }
+    /**
+     * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+     */
+    @java.lang.Override
+    public com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder getMembersOrBuilder(
+        int index) {
+      return members_.get(index);
+    }
+
+    public static final int FIELD_2_FIELD_NUMBER = 2;
+    private int field2_ = 0;
+    /**
+     * <code>int32 field_2 = 2;</code>
+     * @return The field2.
+     */
+    @java.lang.Override
+    public int getField2() {
+      return field2_;
+    }
+
+    public static final int FIELD_3_FIELD_NUMBER = 3;
+    private int field3_ = 0;
+    /**
+     * <code>int32 field_3 = 3;</code>
+     * @return The field3.
+     */
+    @java.lang.Override
+    public int getField3() {
+      return field3_;
+    }
+
+    public static final int FIELD_4_FIELD_NUMBER = 4;
+    private int field4_ = 0;
+    /**
+     * <code>int32 field_4 = 4;</code>
+     * @return The field4.
+     */
+    @java.lang.Override
+    public int getField4() {
+      return field4_;
+    }
+
+    public static final int ROOM_CAPACITY_FIELD_NUMBER = 5;
+    private int roomCapacity_ = 0;
+    /**
+     * <code>int32 room_capacity = 5;</code>
+     * @return The roomCapacity.
+     */
+    @java.lang.Override
+    public int getRoomCapacity() {
+      return roomCapacity_;
+    }
+
+    public static final int FIELD_6_FIELD_NUMBER = 6;
+    private int field6_ = 0;
+    /**
+     * <code>int32 field_6 = 6;</code>
+     * @return The field6.
+     */
+    @java.lang.Override
+    public int getField6() {
+      return field6_;
+    }
+
+    public static final int FIELD_7_FIELD_NUMBER = 7;
+    private long field7_ = 0L;
+    /**
+     * <code>int64 field_7 = 7;</code>
+     * @return The field7.
+     */
+    @java.lang.Override
+    public long getField7() {
+      return field7_;
+    }
+
+    public static final int FIELD_8_FIELD_NUMBER = 8;
+    private long field8_ = 0L;
+    /**
+     * <code>int64 field_8 = 8;</code>
+     * @return The field8.
+     */
+    @java.lang.Override
+    public long getField8() {
+      return field8_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < members_.size(); i++) {
+        output.writeMessage(1, members_.get(i));
+      }
+      if (field2_ != 0) {
+        output.writeInt32(2, field2_);
+      }
+      if (field3_ != 0) {
+        output.writeInt32(3, field3_);
+      }
+      if (field4_ != 0) {
+        output.writeInt32(4, field4_);
+      }
+      if (roomCapacity_ != 0) {
+        output.writeInt32(5, roomCapacity_);
+      }
+      if (field6_ != 0) {
+        output.writeInt32(6, field6_);
+      }
+      if (field7_ != 0L) {
+        output.writeInt64(7, field7_);
+      }
+      if (field8_ != 0L) {
+        output.writeInt64(8, field8_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < members_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, members_.get(i));
+      }
+      if (field2_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, field2_);
+      }
+      if (field3_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, field3_);
+      }
+      if (field4_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, field4_);
+      }
+      if (roomCapacity_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, roomCapacity_);
+      }
+      if (field6_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, field6_);
+      }
+      if (field7_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(7, field7_);
+      }
+      if (field8_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(8, field8_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.haoyu99.proto.Wcf.RoomData)) {
+        return super.equals(obj);
+      }
+      com.haoyu99.proto.Wcf.RoomData other = (com.haoyu99.proto.Wcf.RoomData) obj;
+
+      if (!getMembersList()
+          .equals(other.getMembersList())) return false;
+      if (getField2()
+          != other.getField2()) return false;
+      if (getField3()
+          != other.getField3()) return false;
+      if (getField4()
+          != other.getField4()) return false;
+      if (getRoomCapacity()
+          != other.getRoomCapacity()) return false;
+      if (getField6()
+          != other.getField6()) return false;
+      if (getField7()
+          != other.getField7()) return false;
+      if (getField8()
+          != other.getField8()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getMembersCount() > 0) {
+        hash = (37 * hash) + MEMBERS_FIELD_NUMBER;
+        hash = (53 * hash) + getMembersList().hashCode();
+      }
+      hash = (37 * hash) + FIELD_2_FIELD_NUMBER;
+      hash = (53 * hash) + getField2();
+      hash = (37 * hash) + FIELD_3_FIELD_NUMBER;
+      hash = (53 * hash) + getField3();
+      hash = (37 * hash) + FIELD_4_FIELD_NUMBER;
+      hash = (53 * hash) + getField4();
+      hash = (37 * hash) + ROOM_CAPACITY_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomCapacity();
+      hash = (37 * hash) + FIELD_6_FIELD_NUMBER;
+      hash = (53 * hash) + getField6();
+      hash = (37 * hash) + FIELD_7_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getField7());
+      hash = (37 * hash) + FIELD_8_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getField8());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.haoyu99.proto.Wcf.RoomData parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.haoyu99.proto.Wcf.RoomData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code wcf.RoomData}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:wcf.RoomData)
+        com.haoyu99.proto.Wcf.RoomDataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.haoyu99.proto.Wcf.RoomData.class, com.haoyu99.proto.Wcf.RoomData.Builder.class);
+      }
+
+      // Construct using com.haoyu99.proto.Wcf.RoomData.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        if (membersBuilder_ == null) {
+          members_ = java.util.Collections.emptyList();
+        } else {
+          members_ = null;
+          membersBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        field2_ = 0;
+        field3_ = 0;
+        field4_ = 0;
+        roomCapacity_ = 0;
+        field6_ = 0;
+        field7_ = 0L;
+        field8_ = 0L;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.haoyu99.proto.Wcf.internal_static_wcf_RoomData_descriptor;
+      }
+
+      @java.lang.Override
+      public com.haoyu99.proto.Wcf.RoomData getDefaultInstanceForType() {
+        return com.haoyu99.proto.Wcf.RoomData.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.haoyu99.proto.Wcf.RoomData build() {
+        com.haoyu99.proto.Wcf.RoomData result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.haoyu99.proto.Wcf.RoomData buildPartial() {
+        com.haoyu99.proto.Wcf.RoomData result = new com.haoyu99.proto.Wcf.RoomData(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.haoyu99.proto.Wcf.RoomData result) {
+        if (membersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            members_ = java.util.Collections.unmodifiableList(members_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.members_ = members_;
+        } else {
+          result.members_ = membersBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(com.haoyu99.proto.Wcf.RoomData result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.field2_ = field2_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.field3_ = field3_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.field4_ = field4_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.roomCapacity_ = roomCapacity_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.field6_ = field6_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.field7_ = field7_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.field8_ = field8_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.haoyu99.proto.Wcf.RoomData) {
+          return mergeFrom((com.haoyu99.proto.Wcf.RoomData)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.haoyu99.proto.Wcf.RoomData other) {
+        if (other == com.haoyu99.proto.Wcf.RoomData.getDefaultInstance()) return this;
+        if (membersBuilder_ == null) {
+          if (!other.members_.isEmpty()) {
+            if (members_.isEmpty()) {
+              members_ = other.members_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureMembersIsMutable();
+              members_.addAll(other.members_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.members_.isEmpty()) {
+            if (membersBuilder_.isEmpty()) {
+              membersBuilder_.dispose();
+              membersBuilder_ = null;
+              members_ = other.members_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              membersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMembersFieldBuilder() : null;
+            } else {
+              membersBuilder_.addAllMessages(other.members_);
+            }
+          }
+        }
+        if (other.getField2() != 0) {
+          setField2(other.getField2());
+        }
+        if (other.getField3() != 0) {
+          setField3(other.getField3());
+        }
+        if (other.getField4() != 0) {
+          setField4(other.getField4());
+        }
+        if (other.getRoomCapacity() != 0) {
+          setRoomCapacity(other.getRoomCapacity());
+        }
+        if (other.getField6() != 0) {
+          setField6(other.getField6());
+        }
+        if (other.getField7() != 0L) {
+          setField7(other.getField7());
+        }
+        if (other.getField8() != 0L) {
+          setField8(other.getField8());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.haoyu99.proto.Wcf.RoomData.RoomMember m =
+                    input.readMessage(
+                        com.haoyu99.proto.Wcf.RoomData.RoomMember.parser(),
+                        extensionRegistry);
+                if (membersBuilder_ == null) {
+                  ensureMembersIsMutable();
+                  members_.add(m);
+                } else {
+                  membersBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              case 16: {
+                field2_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                field3_ = input.readInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 32: {
+                field4_ = input.readInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              case 40: {
+                roomCapacity_ = input.readInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
+              case 48: {
+                field6_ = input.readInt32();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 48
+              case 56: {
+                field7_ = input.readInt64();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 56
+              case 64: {
+                field8_ = input.readInt64();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 64
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.haoyu99.proto.Wcf.RoomData.RoomMember> members_ =
+        java.util.Collections.emptyList();
+      private void ensureMembersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          members_ = new java.util.ArrayList<com.haoyu99.proto.Wcf.RoomData.RoomMember>(members_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.haoyu99.proto.Wcf.RoomData.RoomMember, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder, com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder> membersBuilder_;
+
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public java.util.List<com.haoyu99.proto.Wcf.RoomData.RoomMember> getMembersList() {
+        if (membersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(members_);
+        } else {
+          return membersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public int getMembersCount() {
+        if (membersBuilder_ == null) {
+          return members_.size();
+        } else {
+          return membersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public com.haoyu99.proto.Wcf.RoomData.RoomMember getMembers(int index) {
+        if (membersBuilder_ == null) {
+          return members_.get(index);
+        } else {
+          return membersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder setMembers(
+          int index, com.haoyu99.proto.Wcf.RoomData.RoomMember value) {
+        if (membersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMembersIsMutable();
+          members_.set(index, value);
+          onChanged();
+        } else {
+          membersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder setMembers(
+          int index, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder builderForValue) {
+        if (membersBuilder_ == null) {
+          ensureMembersIsMutable();
+          members_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          membersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder addMembers(com.haoyu99.proto.Wcf.RoomData.RoomMember value) {
+        if (membersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMembersIsMutable();
+          members_.add(value);
+          onChanged();
+        } else {
+          membersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder addMembers(
+          int index, com.haoyu99.proto.Wcf.RoomData.RoomMember value) {
+        if (membersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMembersIsMutable();
+          members_.add(index, value);
+          onChanged();
+        } else {
+          membersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder addMembers(
+          com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder builderForValue) {
+        if (membersBuilder_ == null) {
+          ensureMembersIsMutable();
+          members_.add(builderForValue.build());
+          onChanged();
+        } else {
+          membersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder addMembers(
+          int index, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder builderForValue) {
+        if (membersBuilder_ == null) {
+          ensureMembersIsMutable();
+          members_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          membersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder addAllMembers(
+          java.lang.Iterable<? extends com.haoyu99.proto.Wcf.RoomData.RoomMember> values) {
+        if (membersBuilder_ == null) {
+          ensureMembersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, members_);
+          onChanged();
+        } else {
+          membersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder clearMembers() {
+        if (membersBuilder_ == null) {
+          members_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          membersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public Builder removeMembers(int index) {
+        if (membersBuilder_ == null) {
+          ensureMembersIsMutable();
+          members_.remove(index);
+          onChanged();
+        } else {
+          membersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder getMembersBuilder(
+          int index) {
+        return getMembersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder getMembersOrBuilder(
+          int index) {
+        if (membersBuilder_ == null) {
+          return members_.get(index);  } else {
+          return membersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public java.util.List<? extends com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder> 
+           getMembersOrBuilderList() {
+        if (membersBuilder_ != null) {
+          return membersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(members_);
+        }
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder addMembersBuilder() {
+        return getMembersFieldBuilder().addBuilder(
+            com.haoyu99.proto.Wcf.RoomData.RoomMember.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder addMembersBuilder(
+          int index) {
+        return getMembersFieldBuilder().addBuilder(
+            index, com.haoyu99.proto.Wcf.RoomData.RoomMember.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .wcf.RoomData.RoomMember members = 1;</code>
+       */
+      public java.util.List<com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder> 
+           getMembersBuilderList() {
+        return getMembersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.haoyu99.proto.Wcf.RoomData.RoomMember, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder, com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder> 
+          getMembersFieldBuilder() {
+        if (membersBuilder_ == null) {
+          membersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.haoyu99.proto.Wcf.RoomData.RoomMember, com.haoyu99.proto.Wcf.RoomData.RoomMember.Builder, com.haoyu99.proto.Wcf.RoomData.RoomMemberOrBuilder>(
+                  members_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          members_ = null;
+        }
+        return membersBuilder_;
+      }
+
+      private int field2_ ;
+      /**
+       * <code>int32 field_2 = 2;</code>
+       * @return The field2.
+       */
+      @java.lang.Override
+      public int getField2() {
+        return field2_;
+      }
+      /**
+       * <code>int32 field_2 = 2;</code>
+       * @param value The field2 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setField2(int value) {
+
+        field2_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 field_2 = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearField2() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        field2_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int field3_ ;
+      /**
+       * <code>int32 field_3 = 3;</code>
+       * @return The field3.
+       */
+      @java.lang.Override
+      public int getField3() {
+        return field3_;
+      }
+      /**
+       * <code>int32 field_3 = 3;</code>
+       * @param value The field3 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setField3(int value) {
+
+        field3_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 field_3 = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearField3() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        field3_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int field4_ ;
+      /**
+       * <code>int32 field_4 = 4;</code>
+       * @return The field4.
+       */
+      @java.lang.Override
+      public int getField4() {
+        return field4_;
+      }
+      /**
+       * <code>int32 field_4 = 4;</code>
+       * @param value The field4 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setField4(int value) {
+
+        field4_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 field_4 = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearField4() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        field4_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int roomCapacity_ ;
+      /**
+       * <code>int32 room_capacity = 5;</code>
+       * @return The roomCapacity.
+       */
+      @java.lang.Override
+      public int getRoomCapacity() {
+        return roomCapacity_;
+      }
+      /**
+       * <code>int32 room_capacity = 5;</code>
+       * @param value The roomCapacity to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRoomCapacity(int value) {
+
+        roomCapacity_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 room_capacity = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRoomCapacity() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        roomCapacity_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int field6_ ;
+      /**
+       * <code>int32 field_6 = 6;</code>
+       * @return The field6.
+       */
+      @java.lang.Override
+      public int getField6() {
+        return field6_;
+      }
+      /**
+       * <code>int32 field_6 = 6;</code>
+       * @param value The field6 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setField6(int value) {
+
+        field6_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 field_6 = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearField6() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        field6_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long field7_ ;
+      /**
+       * <code>int64 field_7 = 7;</code>
+       * @return The field7.
+       */
+      @java.lang.Override
+      public long getField7() {
+        return field7_;
+      }
+      /**
+       * <code>int64 field_7 = 7;</code>
+       * @param value The field7 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setField7(long value) {
+
+        field7_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 field_7 = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearField7() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        field7_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long field8_ ;
+      /**
+       * <code>int64 field_8 = 8;</code>
+       * @return The field8.
+       */
+      @java.lang.Override
+      public long getField8() {
+        return field8_;
+      }
+      /**
+       * <code>int64 field_8 = 8;</code>
+       * @param value The field8 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setField8(long value) {
+
+        field8_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 field_8 = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearField8() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        field8_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:wcf.RoomData)
+    }
+
+    // @@protoc_insertion_point(class_scope:wcf.RoomData)
+    private static final com.haoyu99.proto.Wcf.RoomData DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.haoyu99.proto.Wcf.RoomData();
+    }
+
+    public static com.haoyu99.proto.Wcf.RoomData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RoomData>
+        PARSER = new com.google.protobuf.AbstractParser<RoomData>() {
+      @java.lang.Override
+      public RoomData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RoomData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RoomData> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.haoyu99.proto.Wcf.RoomData getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_wcf_Request_descriptor;
   private static final 
@@ -31630,6 +33622,16 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_wcf_ForwardMsg_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_wcf_RoomData_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_wcf_RoomData_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_wcf_RoomData_RoomMember_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_wcf_RoomData_RoomMember_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -31699,26 +33701,32 @@ java.lang.String defaultValue) {
       "\t\"&\n\006PatMsg\022\016\n\006roomid\030\001 \001(\t\022\014\n\004wxid\030\002 \001(" +
       "\t\"(\n\006OcrMsg\022\016\n\006status\030\001 \001(\005\022\016\n\006result\030\002 " +
       "\001(\t\".\n\nForwardMsg\022\016\n\002id\030\001 \001(\004B\0020\001\022\020\n\010rec" +
-      "eiver\030\002 \001(\t*\362\005\n\tFunctions\022\021\n\rFUNC_RESERV" +
-      "ED\020\000\022\021\n\rFUNC_IS_LOGIN\020\001\022\026\n\022FUNC_GET_SELF" +
-      "_WXID\020\020\022\026\n\022FUNC_GET_MSG_TYPES\020\021\022\025\n\021FUNC_" +
-      "GET_CONTACTS\020\022\022\025\n\021FUNC_GET_DB_NAMES\020\023\022\026\n" +
-      "\022FUNC_GET_DB_TABLES\020\024\022\026\n\022FUNC_GET_USER_I" +
-      "NFO\020\025\022\026\n\022FUNC_GET_AUDIO_MSG\020\026\022\021\n\rFUNC_SE" +
-      "ND_TXT\020 \022\021\n\rFUNC_SEND_IMG\020!\022\022\n\016FUNC_SEND" +
-      "_FILE\020\"\022\021\n\rFUNC_SEND_XML\020#\022\025\n\021FUNC_SEND_" +
-      "EMOTION\020$\022\026\n\022FUNC_SEND_RICH_TXT\020%\022\025\n\021FUN" +
-      "C_SEND_PAT_MSG\020&\022\024\n\020FUNC_FORWARD_MSG\020\'\022\030" +
-      "\n\024FUNC_ENABLE_RECV_TXT\0200\022\031\n\025FUNC_DISABLE" +
-      "_RECV_TXT\020@\022\026\n\022FUNC_EXEC_DB_QUERY\020P\022\026\n\022F" +
-      "UNC_ACCEPT_FRIEND\020Q\022\026\n\022FUNC_RECV_TRANSFE" +
-      "R\020R\022\024\n\020FUNC_REFRESH_PYQ\020S\022\030\n\024FUNC_DOWNLO" +
-      "AD_ATTACH\020T\022\031\n\025FUNC_GET_CONTACT_INFO\020U\022\023" +
-      "\n\017FUNC_REVOKE_MSG\020V\022\027\n\023FUNC_REFRESH_QRCO" +
-      "DE\020W\022\026\n\022FUNC_DECRYPT_IMAGE\020`\022\021\n\rFUNC_EXE" +
-      "C_OCR\020a\022\031\n\025FUNC_ADD_ROOM_MEMBERS\020p\022\031\n\025FU" +
-      "NC_DEL_ROOM_MEMBERS\020q\022\031\n\025FUNC_INV_ROOM_M" +
-      "EMBERS\020rB\023\n\021com.haoyu99.protob\006proto3"
+      "eiver\030\002 \001(\t\"\353\001\n\010RoomData\022)\n\007members\030\001 \003(" +
+      "\0132\030.wcf.RoomData.RoomMember\022\017\n\007field_2\030\002" +
+      " \001(\005\022\017\n\007field_3\030\003 \001(\005\022\017\n\007field_4\030\004 \001(\005\022\025" +
+      "\n\rroom_capacity\030\005 \001(\005\022\017\n\007field_6\030\006 \001(\005\022\017" +
+      "\n\007field_7\030\007 \001(\003\022\017\n\007field_8\030\010 \001(\003\0327\n\nRoom" +
+      "Member\022\014\n\004wxid\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\r\n\005st" +
+      "ate\030\003 \001(\005*\362\005\n\tFunctions\022\021\n\rFUNC_RESERVED" +
+      "\020\000\022\021\n\rFUNC_IS_LOGIN\020\001\022\026\n\022FUNC_GET_SELF_W" +
+      "XID\020\020\022\026\n\022FUNC_GET_MSG_TYPES\020\021\022\025\n\021FUNC_GE" +
+      "T_CONTACTS\020\022\022\025\n\021FUNC_GET_DB_NAMES\020\023\022\026\n\022F" +
+      "UNC_GET_DB_TABLES\020\024\022\026\n\022FUNC_GET_USER_INF" +
+      "O\020\025\022\026\n\022FUNC_GET_AUDIO_MSG\020\026\022\021\n\rFUNC_SEND" +
+      "_TXT\020 \022\021\n\rFUNC_SEND_IMG\020!\022\022\n\016FUNC_SEND_F" +
+      "ILE\020\"\022\021\n\rFUNC_SEND_XML\020#\022\025\n\021FUNC_SEND_EM" +
+      "OTION\020$\022\026\n\022FUNC_SEND_RICH_TXT\020%\022\025\n\021FUNC_" +
+      "SEND_PAT_MSG\020&\022\024\n\020FUNC_FORWARD_MSG\020\'\022\030\n\024" +
+      "FUNC_ENABLE_RECV_TXT\0200\022\031\n\025FUNC_DISABLE_R" +
+      "ECV_TXT\020@\022\026\n\022FUNC_EXEC_DB_QUERY\020P\022\026\n\022FUN" +
+      "C_ACCEPT_FRIEND\020Q\022\026\n\022FUNC_RECV_TRANSFER\020" +
+      "R\022\024\n\020FUNC_REFRESH_PYQ\020S\022\030\n\024FUNC_DOWNLOAD" +
+      "_ATTACH\020T\022\031\n\025FUNC_GET_CONTACT_INFO\020U\022\023\n\017" +
+      "FUNC_REVOKE_MSG\020V\022\027\n\023FUNC_REFRESH_QRCODE" +
+      "\020W\022\026\n\022FUNC_DECRYPT_IMAGE\020`\022\021\n\rFUNC_EXEC_" +
+      "OCR\020a\022\031\n\025FUNC_ADD_ROOM_MEMBERS\020p\022\031\n\025FUNC" +
+      "_DEL_ROOM_MEMBERS\020q\022\031\n\025FUNC_INV_ROOM_MEM" +
+      "BERS\020rB\023\n\021com.haoyu99.protob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -31898,6 +33906,18 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_wcf_ForwardMsg_descriptor,
         new java.lang.String[] { "Id", "Receiver", });
+    internal_static_wcf_RoomData_descriptor =
+      getDescriptor().getMessageTypes().get(28);
+    internal_static_wcf_RoomData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_wcf_RoomData_descriptor,
+        new java.lang.String[] { "Members", "Field2", "Field3", "Field4", "RoomCapacity", "Field6", "Field7", "Field8", });
+    internal_static_wcf_RoomData_RoomMember_descriptor =
+      internal_static_wcf_RoomData_descriptor.getNestedTypes().get(0);
+    internal_static_wcf_RoomData_RoomMember_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_wcf_RoomData_RoomMember_descriptor,
+        new java.lang.String[] { "Wxid", "Name", "State", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

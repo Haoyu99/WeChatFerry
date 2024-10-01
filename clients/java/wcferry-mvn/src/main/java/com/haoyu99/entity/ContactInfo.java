@@ -24,4 +24,19 @@ public class ContactInfo extends BaseUserInfo {
     private String city;     // 城市
     private int gender;  // 性别
     private ContactType type; //联系人类型
+
+    @Override
+    public String toString() {
+        return "ContactInfo{" +
+                "wxid='" + wxid + '\'' +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", remark='" + remark + '\'' +
+                ", country='" + country + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", gender=" + gender +
+                ", type=" + type +
+                '}';
+    }
 }

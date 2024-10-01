@@ -1,6 +1,7 @@
 package com.haoyu99.service;
 
 import com.haoyu99.entity.ContactInfo;
+import com.haoyu99.entity.GroupContactInfo;
 import com.haoyu99.entity.MessageType;
 import com.haoyu99.entity.PersonalInfo;
 import com.haoyu99.service.processor.MessageProcessor;
@@ -87,15 +88,16 @@ public interface WechatService {
 
     public int sendFile(MessageType messageType, String filePath, String receiver);
 
+
     /**
      * 获取群成员
      * @author haoyu99
-     * @date 2024/9/28 16:57
-     * @param:
-     * @return java.util.Map<java.lang.String, java.lang.String>   "wxid1": "昵称1"
+     * @date 2024/10/2 1:18
+     * @param: roomId
+     * @return java.util.List<com.haoyu99.entity.GroupContactInfo>
      */
 
-    public Map<String, String> getChatRoomMembers();
+    public List<GroupContactInfo> getChatRoomMembers(String roomId);
 
     /**
      * 开启消息接收并选择消息处理器进行消费

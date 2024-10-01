@@ -19,9 +19,9 @@ from typing import Callable, Dict, List, Optional
 import pynng
 import requests
 from google.protobuf import json_format
-from wcferry import wcf_pb2
-from wcferry.roomdata_pb2 import RoomData
-from wcferry.wxmsg import WxMsg
+import wcf_pb2
+from roomdata_pb2 import RoomData
+from wxmsg import WxMsg
 
 
 def _retry():

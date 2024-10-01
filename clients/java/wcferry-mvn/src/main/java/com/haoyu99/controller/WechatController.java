@@ -61,6 +61,13 @@ public class WechatController {
     public Response<PersonalInfo> getSelfInfo(){
         return Response.success(wechatService.getPersonalInfo());
     }
+
+    @GetMapping("/roomMember")
+    public void getRoomMember(){
+        wechatService.getChatRoomMembers("57224393834@chatroom");
+    }
+
+
     /**
      * 单发消息
      * @author haoyu99

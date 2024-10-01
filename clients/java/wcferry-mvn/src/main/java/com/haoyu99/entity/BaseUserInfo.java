@@ -1,6 +1,7 @@
 package com.haoyu99.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class BaseUserInfo {
     protected String wxid; // 微信ID
     protected String name; // 昵称

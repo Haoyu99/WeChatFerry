@@ -541,8 +541,11 @@ public class Client {
     }
 
     public void getRoomMembers() {
-        List<Wcf.DbRow> dbRows = querySql("MicroMsg.db", "SELECT * FROM Contact;");
+        List<Wcf.DbRow> dbRows = querySql("MicroMsg.db", "SELECT UserName, NickName FROM Contact");
         System.out.println(dbRows);
+        List<Wcf.DbRow> dbRows2 = querySql("MicroMsg.db", "SELECT RoomData FROM ChatRoom WHERE ChatRoomName = 57224393834@chatroom");
+        System.out.println("***************************");
+
     }
 
 }
