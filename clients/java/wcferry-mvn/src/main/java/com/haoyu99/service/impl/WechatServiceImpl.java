@@ -2,7 +2,7 @@ package com.haoyu99.service.impl;
 
 import com.haoyu99.entity.ContactInfo;
 import com.haoyu99.entity.MessageType;
-import com.haoyu99.entity.SelfInfo;
+import com.haoyu99.entity.PersonalInfo;
 import com.haoyu99.proto.Wcf;
 import com.haoyu99.service.SDK;
 import com.haoyu99.service.WechatService;
@@ -12,6 +12,7 @@ import com.sun.jna.Native;
 import io.sisu.nng.Socket;
 import io.sisu.nng.pair.Pair1Socket;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.stream.Collectors;
 
 /***
  * @title WechatServiceImpl
@@ -44,6 +44,9 @@ public class WechatServiceImpl implements WechatService {
     private boolean isReceivingMessage = false;;
 
     private BlockingQueue<Wcf.WxMsg> msgQueue = new LinkedBlockingQueue<>();
+
+    @Autowired
+    private Convertor convertor;
 
     @Value("${wcferry.socket-host}")
     private String host;
@@ -143,7 +146,7 @@ public class WechatServiceImpl implements WechatService {
         Wcf.Response response = sendCmd(request);
         if(response != null){
             List<Wcf.RpcContact> contactsList = response.getContacts().getContactsList();
-            List<ContactInfo> contactInfos = Convertor.convertListFromRpcContactList(contactsList);
+            List<ContactInfo> contactInfos = convertor.convertListFromRpcContactList(contactsList);
             log.info("获取到当前微信所有联系人:{}", contactInfos);
             return contactInfos;
         }
@@ -151,13 +154,14 @@ public class WechatServiceImpl implements WechatService {
     }
 
     @Override
-    public SelfInfo getSelfInfo() {
+    public PersonalInfo getPersonalInfo() {
         Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_USER_INFO_VALUE).build();
         Wcf.Response rsp = sendCmd(req);
         if (rsp != null) {
             Wcf.UserInfo userInfo = rsp.getUi();
-            SelfInfo selfInfo = Convertor.convertToSelfInfo(userInfo);
-            log.info("获取到当前微信个人资料:{}", selfInfo);
+            PersonalInfo personalInfo = convertor.convertToSelfInfo(userInfo);
+            log.info("获取到当前微信个人资料:{}", personalInfo);
+            return personalInfo;
         }
         return null;
     }

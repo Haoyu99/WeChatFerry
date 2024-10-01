@@ -2,7 +2,8 @@ package com.haoyu99.controller;
 
 import com.haoyu99.dto.TextMessageDTO;
 import com.haoyu99.entity.ContactInfo;
-import com.haoyu99.entity.SelfInfo;
+import com.haoyu99.entity.ContactType;
+import com.haoyu99.entity.PersonalInfo;
 import com.haoyu99.service.WechatService;
 import com.haoyu99.utils.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /***
  * @title WechatController
@@ -31,15 +33,33 @@ public class WechatController {
     public Response<String> getSelfWechatId(){
         return Response.success(wechatService.getSelfWechatId());
     }
+    /**
+     * 获取所有联系人，按照类型分类
+     * @author haoyu99
+     * @date 2024/10/1 20:57
+     * @param:
+     * @return com.haoyu99.utils.Response<java.util.Map< com.haoyu99.entity.ContactType,
+            * java.util.List < com.haoyu99.entity.ContactInfo>>>
+     */
 
     @GetMapping("/contacts")
-    public Response<List<ContactInfo>> getContacts(){
-        return Response.success(wechatService.getContactInfos());
+    public Response<Map<ContactType, List<ContactInfo>>> getContacts(){
+        List<ContactInfo> contacts = wechatService.getContactInfos();
+        Map<ContactType, List<ContactInfo>> result = contacts.stream()
+                .collect(Collectors.groupingBy(ContactInfo::getType));
+        return Response.success(result);
     }
+    /**
+     * 获取个人信息
+     * @author haoyu99
+     * @date 2024/10/1 19:26
+     * @param:
+     * @return com.haoyu99.utils.Response<com.haoyu99.entity.PersonalInfo>
+     */
 
     @GetMapping("/selfInfo")
-    public Response<SelfInfo> getSelfInfo(){
-        return Response.success(wechatService.getSelfInfo());
+    public Response<PersonalInfo> getSelfInfo(){
+        return Response.success(wechatService.getPersonalInfo());
     }
     /**
      * 单发消息

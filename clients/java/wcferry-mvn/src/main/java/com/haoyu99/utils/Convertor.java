@@ -1,9 +1,11 @@
 package com.haoyu99.utils;
 
 import com.haoyu99.entity.ContactInfo;
-import com.haoyu99.entity.SelfInfo;
+import com.haoyu99.entity.ContactType;
+import com.haoyu99.entity.PersonalInfo;
 import com.haoyu99.proto.Wcf;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,21 +17,39 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @create 2024/9/28 18:47
  **/
+@Component
 public class Convertor {
-    public static ContactInfo convertFromRpcContact(Wcf.RpcContact rpcContact) {
+    public ContactInfo convertFromRpcContact(Wcf.RpcContact rpcContact) {
         ContactInfo contactInfo = new ContactInfo();
         BeanUtils.copyProperties(rpcContact, contactInfo);
+        contactInfo.setType(this.getContactType(contactInfo.getWxid()));
         return contactInfo;
     }
-    public static List<ContactInfo> convertListFromRpcContactList(List<Wcf.RpcContact> rpcContactList) {
+    public List<ContactInfo> convertListFromRpcContactList(List<Wcf.RpcContact> rpcContactList) {
         return rpcContactList.stream()
-                .map(Convertor::convertFromRpcContact)
+                .map(this::convertFromRpcContact)
                 .collect(Collectors.toList());
     }
-    public static SelfInfo convertToSelfInfo(Wcf.UserInfo rpcUserInfo) {
-        SelfInfo selfInfo = new SelfInfo();
-        BeanUtils.copyProperties(rpcUserInfo, selfInfo);
-        return selfInfo;
+    public PersonalInfo convertToSelfInfo(Wcf.UserInfo rpcUserInfo) {
+        PersonalInfo personalInfo = new PersonalInfo();
+        BeanUtils.copyProperties(rpcUserInfo, personalInfo);
+        return personalInfo;
+    }
+    private ContactType getContactType(String wxid) {
+        if (wxid.startsWith("gh_")) {
+            return ContactType.OFFICIAL_ACCOUNT;
+        } else if (wxid.endsWith("@chatroom")) {
+            return ContactType.CHATROOM;
+        } else if (wxid.endsWith("@openim")) {
+            return ContactType.ENTERPRISE;
+        } else if (isOfficialUtil(wxid)) {
+            return ContactType.OFFICIAL_UTIL;
+        } else {
+            return ContactType.INDIVIDUAL;
+        }
+    }
+    private boolean isOfficialUtil(String wxid) {
+        return wxid.equals("fmessage") || wxid.equals("medianote") || wxid.equals("filehelper");
     }
 
 }

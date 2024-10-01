@@ -3,7 +3,7 @@
 # 服务端配置
 server:
   # 端口设置
-  port: 8090
+  port: 8888
 
 spring:
   # 配置应用信息

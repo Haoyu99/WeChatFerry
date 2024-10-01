@@ -2,7 +2,7 @@ package com.haoyu99.service;
 
 import com.haoyu99.entity.ContactInfo;
 import com.haoyu99.entity.MessageType;
-import com.haoyu99.entity.SelfInfo;
+import com.haoyu99.entity.PersonalInfo;
 import com.haoyu99.service.processor.MessageProcessor;
 
 import java.util.List;
@@ -59,10 +59,10 @@ public interface WechatService {
      * @author haoyu99
      * @date 2024/9/28 13:21
      * @param:
-     * @return com.haoyu99.entity.SelfInfo
+     * @return com.haoyu99.entity.PersonalInfo
      */
 
-    public SelfInfo getSelfInfo();
+    public PersonalInfo getPersonalInfo();
 
     /**
      * 发送文本消息
