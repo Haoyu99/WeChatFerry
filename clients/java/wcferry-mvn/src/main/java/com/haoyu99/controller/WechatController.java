@@ -1,5 +1,6 @@
 package com.haoyu99.controller;
 
+import com.haoyu99.Client;
 import com.haoyu99.dto.FileMessageDTO;
 import com.haoyu99.dto.TextMessageDTO;
 import com.haoyu99.entity.ContactInfo;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/wechat")
 public class WechatController {
-    @Autowired
+    @Resource
     private WechatService wechatService;
 
     @GetMapping("/selfId")
@@ -88,9 +90,13 @@ public class WechatController {
 
     @PostMapping("/send/text/contact")
     public Response<String> sendTextToContact(@RequestBody TextMessageDTO textMessageDTO){
-        wechatService.sendTextMsg(textMessageDTO.getMessage(),
+        int code = wechatService.sendTextMsg(textMessageDTO.getMessage(),
                 textMessageDTO.getReceiver(), new ArrayList<>());
-        return Response.success("发送成功");
+        if(code != -1){
+            return Response.success("发送成功");
+        }else {
+            return Response.failure("发送失败");
+        }
     }
 
     /**
@@ -118,12 +124,16 @@ public class WechatController {
 
     @PostMapping("/send/text/chatRoom")
     public Response<String> sendTextToRoom(@RequestBody TextMessageDTO textMessageDTO){
-//        TODO: @几个人 拼字符串
-        String message = textMessageDTO.getMessage()+"@niu@zhang";
+        List<String> aters = textMessageDTO.getAters();
+        String chatRoomId = textMessageDTO.getReceiver();
+        List<GroupContactInfo> chatRoomMembers = wechatService.getChatRoomMembers(chatRoomId);
 
-        wechatService.sendTextMsg(message, textMessageDTO.getReceiver(), textMessageDTO.getAters());
+        String atString = "@" + String.join(" @", aters);
+        String message = textMessageDTO.getMessage();
+        wechatService.sendTextMsg(atString + message, chatRoomId, aters);
         return Response.success("发送成功");
     }
+
     /**
      * 发送除TEXT类型外的Message
      * @author haoyu99
@@ -134,8 +144,32 @@ public class WechatController {
 
     @PostMapping("/send/file/contact")
     public Response<String> sendFile(@RequestBody FileMessageDTO fileMessageDTO){
-        wechatService.sendFile(fileMessageDTO.getMessageTypeCode(), fileMessageDTO.getFilePath(),
+        int code = wechatService.sendFile(fileMessageDTO.getMessageTypeCode(), fileMessageDTO.getFilePath(),
                 fileMessageDTO.getReceiver());
-        return null;
+        if(code != -1){
+            return Response.success("发送成功");
+        }else {
+            return Response.failure("发送失败");
+        }
+    }
+
+    @PostMapping("/receive/open")
+    public Response<String> openMessageReceiver(){
+        boolean isOpen = wechatService.openMessageReceiver();
+        if(isOpen){
+            return Response.success("开启消息接收成功");
+        }else {
+            return Response.failure("开启消息接收失败");
+        }
+    }
+
+    @PostMapping("/receive/close")
+    public Response<String> closeMessageReceiver(){
+        boolean isClose = wechatService.closeMessageReceiver();
+        if(isClose){
+            return Response.success("关闭消息接收成功");
+        }else {
+            return Response.failure("关闭消息接收失败");
+        }
     }
 }

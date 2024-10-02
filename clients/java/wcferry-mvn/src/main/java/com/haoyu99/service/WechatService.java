@@ -26,7 +26,7 @@ public interface WechatService {
      * @return boolean
      */
 
-    public boolean isLogin();
+    boolean isLogin();
     /**
      * 获取当前登录账号微信ID
      * @author haoyu99
@@ -35,7 +35,7 @@ public interface WechatService {
      * @return java.lang.String
      */
 
-    public String getSelfWechatId();
+    String getSelfWechatId();
     /**
      * 获取所有消息类型
      * @author haoyu99
@@ -44,7 +44,7 @@ public interface WechatService {
      * @return java.util.Map<java.lang.Integer, java.lang.String>
      */
 
-    public Map<Integer, String> getMsgTypes();
+    Map<Integer, String> getMsgTypes();
 
     /**
      * 获取所有联系人信息
@@ -54,7 +54,7 @@ public interface WechatService {
      * @return java.util.List<com.haoyu99.entity.Contact>
      */
 
-    public List<ContactInfo> getContactInfos();
+    List<ContactInfo> getContactInfos();
     /**
      * 获取当前登录微信的个人信息
      * @author haoyu99
@@ -63,7 +63,7 @@ public interface WechatService {
      * @return com.haoyu99.entity.PersonalInfo
      */
 
-    public PersonalInfo getPersonalInfo();
+    PersonalInfo getPersonalInfo();
 
     /**
      * 发送文本消息
@@ -75,7 +75,7 @@ public interface WechatService {
      * @return int
      */
 
-    public int sendTextMsg(String message, String receiver, List<String> atUsers);
+    int sendTextMsg(String message, String receiver, List<String> atUsers);
     /**
      *
      * @author haoyu99
@@ -86,7 +86,7 @@ public interface WechatService {
      * @return int
      */
 
-    public int sendFile(int code, String filePath, String receiver);
+    int sendFile(int code, String filePath, String receiver);
 
 
     /**
@@ -97,7 +97,7 @@ public interface WechatService {
      * @return java.util.List<com.haoyu99.entity.GroupContactInfo>
      */
 
-    public List<GroupContactInfo> getChatRoomMembers(String roomId);
+    List<GroupContactInfo> getChatRoomMembers(String roomId);
 
     /**
      * 开启消息接收并选择消息处理器进行消费
@@ -107,7 +107,7 @@ public interface WechatService {
      * @return boolean
      */
 
-    public boolean openMessageReceiver(MessageProcessor messageProcessor);
+    boolean openMessageReceiver();
 
     /**
      * 关闭消息处接收
@@ -117,7 +117,7 @@ public interface WechatService {
      * @return boolean
      */
 
-    public boolean closeMessageReceiver();
+    boolean closeMessageReceiver();
 
 
 

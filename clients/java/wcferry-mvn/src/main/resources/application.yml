@@ -22,4 +22,6 @@ wcferry:
   # socket host
   socket-host: 127.0.0.1
   # socket port
-  socket-port: 9090
+  socket-port: 10086
+  # 消息队列最大长度
+  message-queue-size: 100

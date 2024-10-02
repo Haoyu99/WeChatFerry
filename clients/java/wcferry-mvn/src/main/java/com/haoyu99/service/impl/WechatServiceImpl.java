@@ -2,6 +2,7 @@ package com.haoyu99.service.impl;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.haoyu99.config.WcferryProperties;
 import com.haoyu99.constant.SQLConstant;
 import com.haoyu99.entity.*;
 import com.haoyu99.proto.Wcf;
@@ -18,11 +19,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 import java.util.function.Function;
 
 
@@ -36,6 +37,8 @@ import java.util.function.Function;
 @Slf4j
 @Service
 public class WechatServiceImpl implements WechatService, SQLConstant {
+    @Resource
+    private WcferryProperties properties;
 
     private static final int BUFFER_SIZE = 16 * 1024 * 1024; // 16M
     // RPC Socket
@@ -43,13 +46,23 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
     // Message Socket
     private Socket msgSocket;
 
-    private boolean isReceivingMessage = false;;
-
-    private BlockingQueue<Wcf.WxMsg> msgQueue = new LinkedBlockingQueue<>();
-
     private final Map<Integer, Function<byte[], Object>> SQL_TYPES = new HashMap<>();
 
     private final Map<MessageType, Wcf.Functions> messageTypeFunctionsMap = new HashMap<>();
+
+    private final String URL = "tcp://%s:%s";
+
+    private LinkedBlockingQueue<Wcf.WxMsg> messageQueue;
+
+    private volatile boolean isReceivingMsg = false;
+
+    private volatile Thread listenThread = null;
+
+    private ExecutorService executorService;
+
+    private volatile boolean isProcessingMessages = false;
+
+    private final Object socketLock = new Object();
 
 
     @Autowired
@@ -61,6 +74,8 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
     private int port;
     @Value("${wcferry.dll-path}")
     private String dllPath;
+    @Value("${wcferry.message-queue-size}")
+    private int messageQueueMaxSize;
 
     @PostConstruct
     public void init() {
@@ -70,12 +85,13 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
             log.error("启动 RPC 失败: {}", status);
             System.exit(-1);
         }
-        String CMDURL = "tcp://%s:%s";
-        connectRPC(String.format(CMDURL, host, port), INSTANCE);
+        connectRPC(String.format(URL, host, port), INSTANCE);
         this.initMap();
-
+        messageQueue = new LinkedBlockingQueue<>(messageQueueMaxSize);
+        executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         log.info("WechatService init success!");
     }
+
     public void initMap(){
         // 初始化SQL_TYPES 根据类型执行不同的Func
         SQL_TYPES.put(1, bytes -> ByteBuffer.wrap(bytes).getInt());
@@ -116,7 +132,6 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
             log.info("关闭...");
             closeMessageReceiver();
             INSTANCE.WxDestroySDK();
-
         }));
     }
 
@@ -310,13 +325,157 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
     }
 
     @Override
-    public boolean openMessageReceiver(MessageProcessor messageProcessor) {
-        return false;
+    public boolean openMessageReceiver() {
+        if (isReceivingMsg) {
+            log.info("已开启消息接收");
+            return true;
+        }
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_ENABLE_RECV_TXT_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
+        if (rsp == null) {
+            log.error("启动消息接收失败");
+            return false;
+        }
+        isReceivingMsg = true;
+        //TODO: 处理开启消息监听失败的情况
+        listenMessage();
+        //TODO: 处理开启消息消费失败的情况
+        MessageConsumer();
+        log.info("开启消息接收");
+        return true;
     }
 
     @Override
     public boolean closeMessageReceiver() {
+        if (!isReceivingMsg) {
+            log.info("消息接收已关闭");
+            return true;
+        }
+        // 关闭监听线程
+        if (listenThread != null && listenThread.isAlive()) {
+            try {
+                listenThread.interrupt();
+                listenThread.join(3000); // 等待最多3秒
+            } catch (InterruptedException e) {
+                log.error("等待消息接收线程结束失败", e);
+                Thread.currentThread().interrupt();
+            }
+        }
+        // 关闭线程池
+        if (executorService != null) {
+            executorService.shutdown(); // 温和地关闭线程池
+            try {
+                // 等待正在进行的任务完成
+                if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                    // 如果等待超时，强制关闭
+                    executorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executorService.shutdownNow();
+                Thread.currentThread().interrupt();
+                log.error("关闭线程池时被中断", e);
+            }
+        }
+        // 安全地关闭socket
+        synchronized (socketLock) {
+            if (msgSocket != null) {
+                try {
+                    msgSocket.close();
+                } catch (Exception e) {
+                    log.error("关闭消息 RPC 失败", e);
+                } finally {
+                    msgSocket = null;
+                }
+            }
+        }
+        // 处理剩余的消息
+        processRemainingMessages();
+        isProcessingMessages = false;
+
+        listenThread = null;
+        executorService = null;
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_DISABLE_RECV_TXT_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
+        if(rsp != null){
+            if (rsp.getStatus() == 0) {
+                isReceivingMsg = false;
+                log.info("消息接收关闭");
+                return true;
+            }
+        }
         return false;
+    }
+
+    private void listenMessage(){
+        if (listenThread != null && listenThread.isAlive()) {
+            return;
+        }
+
+        String messageUrl = String.format(URL, host, port + 1);
+        listenThread = new Thread(() -> {
+            try {
+                msgSocket = new Pair1Socket();
+                msgSocket.dial(messageUrl);
+                msgSocket.setReceiveTimeout(5000); // 5 秒超时
+            } catch (Exception e) {
+                log.error("创建消息 RPC 失败", e);
+                return;
+            }
+
+            ByteBuffer bb = ByteBuffer.allocate(BUFFER_SIZE);
+            while (isReceivingMsg) {
+                try {
+                    long size = msgSocket.receive(bb, true);
+                    if (size > 0) {
+                        Wcf.WxMsg wxMsg = Wcf.Response.parseFrom(
+                                Arrays.copyOfRange(bb.array(), 0, (int) size)).getWxmsg();
+                        messageQueue.put(wxMsg);
+                    }
+                    bb.clear(); // 清空缓冲区，准备下一次接收
+                } catch (Exception e) {
+                    if (isReceivingMsg) {
+                        log.info("接收信息超时", e);
+                    }
+                }
+            }
+        });
+        listenThread.start();
+    }
+
+    private void MessageConsumer() {
+        executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        isProcessingMessages = true;
+        executorService.submit(() -> {
+            while (isProcessingMessages && !Thread.currentThread().isInterrupted()) {
+                try {
+                    Wcf.WxMsg wxMsg = messageQueue.poll(5, TimeUnit.SECONDS);
+                    if (wxMsg != null) {
+                        // TODO：处理消息
+                        System.out.println(wxMsg);
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.error("消息消费者被中断", e);
+                } catch (Exception e) {
+                    log.error("处理消息时发生错误", e);
+                }
+            }
+        });
+    }
+
+    private void processRemainingMessages() {
+        List<Wcf.WxMsg> remainingMessages = new ArrayList<>();
+        messageQueue.drainTo(remainingMessages);
+        if (!remainingMessages.isEmpty()) {
+            log.info("处理剩余的 {} 条消息", remainingMessages.size());
+            for (Wcf.WxMsg msg : remainingMessages) {
+                try {
+                    System.out.println(msg);;
+                } catch (Exception e) {
+                    log.error("处理剩余消息时发生错误", e);
+                }
+            }
+        }
     }
 
     public void waitMs(long ms) {
