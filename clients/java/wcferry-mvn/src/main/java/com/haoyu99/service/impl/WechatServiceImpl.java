@@ -337,7 +337,7 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
             return false;
         }
         isReceivingMsg = true;
-        //TODO: 处理开启消息监听失败的情况
+        //TODO: 处理开启消息监听失败的情况。
         listenMessage();
         //TODO: 处理开启消息消费失败的情况
         MessageConsumer();
