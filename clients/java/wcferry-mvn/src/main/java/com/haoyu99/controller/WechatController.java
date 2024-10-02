@@ -1,8 +1,10 @@
 package com.haoyu99.controller;
 
+import com.haoyu99.dto.FileMessageDTO;
 import com.haoyu99.dto.TextMessageDTO;
 import com.haoyu99.entity.ContactInfo;
 import com.haoyu99.entity.ContactType;
+import com.haoyu99.entity.GroupContactInfo;
 import com.haoyu99.entity.PersonalInfo;
 import com.haoyu99.service.WechatService;
 import com.haoyu99.utils.Response;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
  **/
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/wechat")
 public class WechatController {
     @Autowired
     private WechatService wechatService;
@@ -62,9 +64,17 @@ public class WechatController {
         return Response.success(wechatService.getPersonalInfo());
     }
 
-    @GetMapping("/roomMember")
-    public void getRoomMember(){
-        wechatService.getChatRoomMembers("57224393834@chatroom");
+    /**
+     * 获取群聊的全部成员
+     * @author haoyu99
+     * @date 2024/10/2 1:39
+     * @param: roomId
+     * @return com.haoyu99.utils.Response<java.util.List < com.haoyu99.entity.GroupContactInfo>>
+     */
+
+    @GetMapping("/room/members")
+    public Response<List<GroupContactInfo>> getRoomMember(@RequestParam("roomId") String roomId){
+        return Response.success(wechatService.getChatRoomMembers(roomId));
     }
 
 
@@ -76,8 +86,8 @@ public class WechatController {
      * @return com.haoyu99.utils.Response<java.lang.String>
      */
 
-    @PostMapping("/sendTxt/contact")
-    public Response<String> sendTxtToContact(@RequestBody TextMessageDTO textMessageDTO){
+    @PostMapping("/send/text/contact")
+    public Response<String> sendTextToContact(@RequestBody TextMessageDTO textMessageDTO){
         wechatService.sendTextMsg(textMessageDTO.getMessage(),
                 textMessageDTO.getReceiver(), new ArrayList<>());
         return Response.success("发送成功");
@@ -91,8 +101,8 @@ public class WechatController {
      * @return com.haoyu99.utils.Response<java.lang.String>
      */
 
-    @PostMapping("/sendTxt/contacts")
-    public Response<String> sendTxtToContacts(@RequestBody List<TextMessageDTO> textMessageDTOs){
+    @PostMapping("/send/text/contacts")
+    public Response<String> sendTextToContacts(@RequestBody List<TextMessageDTO> textMessageDTOs){
         textMessageDTOs.forEach(textMessageDTO ->
                 wechatService.sendTextMsg(textMessageDTO.getMessage(),
                         textMessageDTO.getReceiver(), new ArrayList<>()));
@@ -106,12 +116,26 @@ public class WechatController {
      * @return com.haoyu99.utils.Response<java.lang.String>
      */
 
-    @PostMapping("/sendTxt/room")
-    public Response<String> sendTxtToRoom(@RequestBody TextMessageDTO textMessageDTO){
+    @PostMapping("/send/text/chatRoom")
+    public Response<String> sendTextToRoom(@RequestBody TextMessageDTO textMessageDTO){
 //        TODO: @几个人 拼字符串
         String message = textMessageDTO.getMessage()+"@niu@zhang";
 
         wechatService.sendTextMsg(message, textMessageDTO.getReceiver(), textMessageDTO.getAters());
         return Response.success("发送成功");
+    }
+    /**
+     * 发送除TEXT类型外的Message
+     * @author haoyu99
+     * @date 2024/10/2 12:24
+     * @param:
+     * @return com.haoyu99.utils.Response<java.lang.String>
+     */
+
+    @PostMapping("/send/file/contact")
+    public Response<String> sendFile(@RequestBody FileMessageDTO fileMessageDTO){
+        wechatService.sendFile(fileMessageDTO.getMessageTypeCode(), fileMessageDTO.getFilePath(),
+                fileMessageDTO.getReceiver());
+        return null;
     }
 }

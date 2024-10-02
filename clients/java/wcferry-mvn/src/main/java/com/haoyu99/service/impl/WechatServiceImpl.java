@@ -49,6 +49,8 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
 
     private final Map<Integer, Function<byte[], Object>> SQL_TYPES = new HashMap<>();
 
+    private final Map<MessageType, Wcf.Functions> messageTypeFunctionsMap = new HashMap<>();
+
 
     @Autowired
     private Convertor convertor;
@@ -70,14 +72,26 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
         }
         String CMDURL = "tcp://%s:%s";
         connectRPC(String.format(CMDURL, host, port), INSTANCE);
+        this.initMap();
+
+        log.info("WechatService init success!");
+    }
+    public void initMap(){
         // 初始化SQL_TYPES 根据类型执行不同的Func
         SQL_TYPES.put(1, bytes -> ByteBuffer.wrap(bytes).getInt());
         SQL_TYPES.put(2, bytes -> ByteBuffer.wrap(bytes).getFloat());
         SQL_TYPES.put(3, bytes -> new String(bytes, StandardCharsets.UTF_8));
         SQL_TYPES.put(4, bytes -> bytes);
         SQL_TYPES.put(5, bytes -> null);
-        log.info("WechatService init success!");
+        // 初始化messageTypeFunctionsMap
+        messageTypeFunctionsMap.put(MessageType.IMAGE, Wcf.Functions.FUNC_SEND_IMG);
+        messageTypeFunctionsMap.put(MessageType.FILE, Wcf.Functions.FUNC_SEND_FILE);
+        messageTypeFunctionsMap.put(MessageType.XML, Wcf.Functions.FUNC_SEND_XML);
+        messageTypeFunctionsMap.put(MessageType.EMOTION, Wcf.Functions.FUNC_SEND_EMOTION);
     }
+
+
+
 
 
 
@@ -248,8 +262,22 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
     }
 
     @Override
-    public int sendFile(MessageType messageType, String filePath, String receiver) {
-        return 0;
+    public int sendFile(int code, String filePath, String receiver) {
+        MessageType messageType = MessageType.getMessageTypeFromCode(code);
+        if(!messageTypeFunctionsMap.containsKey(messageType)){
+            log.error("不支持的MessageType:{}", messageType);
+            return -1;
+        }
+        Wcf.Functions functions = messageTypeFunctionsMap.get(messageType);
+        Wcf.PathMsg pathMsg = Wcf.PathMsg.newBuilder().setPath(filePath).setReceiver(receiver).build();
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(functions.getNumber()).setFile(pathMsg).build();
+        log.debug("sendFile: {}", bytesToHex(req.toByteArray()));
+        Wcf.Response rsp = sendCmd(req);
+        int ret = -1;
+        if (rsp != null) {
+            ret = rsp.getStatus();
+        }
+        return ret;
     }
 
     @Override

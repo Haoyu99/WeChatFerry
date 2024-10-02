@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupContactInfo extends BaseUserInfo{
+    // 暂时不知道这个字段什么意思
     private int state;
 
     @Override

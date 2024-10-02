@@ -80,13 +80,13 @@ public interface WechatService {
      *
      * @author haoyu99
      * @date 2024/9/28 14:36
-     * @param: messageType  EMOTION IMAGE FILE
-     * @param: filePath 文件本地路径
+     * @param: messageType  EMOTION IMAGE FILE XML
+     * @param: filePath 文件本地路径（可能支持URL）
      * @param: receiver 接收者 可以是个人也可以是room
      * @return int
      */
 
-    public int sendFile(MessageType messageType, String filePath, String receiver);
+    public int sendFile(int code, String filePath, String receiver);
 
 
     /**
