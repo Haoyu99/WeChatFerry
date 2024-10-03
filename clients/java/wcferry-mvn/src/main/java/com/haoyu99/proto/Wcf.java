@@ -32684,6 +32684,10 @@ java.lang.String defaultValue) {
       return builder;
     }
     /**
+     * <pre>
+     * RoomData内部转换
+     * </pre>
+     *
      * Protobuf type {@code wcf.RoomData}
      */
     public static final class Builder extends
