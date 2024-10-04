@@ -8,7 +8,6 @@ import com.haoyu99.entity.*;
 import com.haoyu99.proto.Wcf;
 import com.haoyu99.service.SDK;
 import com.haoyu99.service.WechatService;
-import com.haoyu99.service.processor.MessageProcessor;
 import com.haoyu99.utils.Convertor;
 import com.sun.jna.Native;
 import io.sisu.nng.Socket;
@@ -50,6 +49,8 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
 
     private final Map<MessageType, Wcf.Functions> messageTypeFunctionsMap = new HashMap<>();
 
+    private Map<Integer, String> receiveMessageTypeMap = new HashMap<>();
+
     private final String URL = "tcp://%s:%s";
 
     private LinkedBlockingQueue<Wcf.WxMsg> messageQueue;
@@ -86,10 +87,15 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
             System.exit(-1);
         }
         connectRPC(String.format(URL, host, port), INSTANCE);
+        // 初始化map
         this.initMap();
+        // 初始化消息队列
         messageQueue = new LinkedBlockingQueue<>(messageQueueMaxSize);
+        // 初始化线程池
         executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         log.info("WechatService init success!");
+        String selfWechatId = getSelfWechatId();
+        log.info("获取到登录微信id{}", selfWechatId);
     }
 
     public void initMap(){
@@ -104,11 +110,9 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
         messageTypeFunctionsMap.put(MessageType.FILE, Wcf.Functions.FUNC_SEND_FILE);
         messageTypeFunctionsMap.put(MessageType.XML, Wcf.Functions.FUNC_SEND_XML);
         messageTypeFunctionsMap.put(MessageType.EMOTION, Wcf.Functions.FUNC_SEND_EMOTION);
+        // 初始化receiveMessageTypeMap
+        receiveMessageTypeMap = getMessageTypesMap();
     }
-
-
-
-
 
 
     public void connectRPC(String url, SDK INSTANCE) {
@@ -157,28 +161,6 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
         }
         return false;
     }
-
-    @Override
-    public String getSelfWechatId() {
-        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_SELF_WXID_VALUE).build();
-        Wcf.Response rsp = sendCmd(req);
-        if (rsp != null) {
-            String selfWechatId = rsp.getStr();
-            log.info("获取到个人微信号:{}", selfWechatId);
-            return selfWechatId;
-        }
-        return "";
-    }
-
-    @Override
-    public Map<Integer, String> getMsgTypes() {
-        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_MSG_TYPES_VALUE).build();
-        Wcf.Response rsp = sendCmd(req);
-        if (rsp != null) {
-            return rsp.getTypes().getTypesMap();
-        }
-
-        return Wcf.MsgTypes.newBuilder().build().getTypesMap();    }
 
     @Override
     public List<ContactInfo> getContactInfos() {
@@ -406,6 +388,24 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
         return false;
     }
 
+    public String getSelfWechatId() {
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_SELF_WXID_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
+        if (rsp != null) {
+            return rsp.getStr();
+        }
+        return "";
+    }
+
+    public Map<Integer, String> getMessageTypesMap() {
+        Wcf.Request req = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_GET_MSG_TYPES_VALUE).build();
+        Wcf.Response rsp = sendCmd(req);
+        if (rsp != null) {
+            return rsp.getTypes().getTypesMap();
+        }
+        return Wcf.MsgTypes.newBuilder().build().getTypesMap();
+    }
+
     private void listenMessage(){
         if (listenThread != null && listenThread.isAlive()) {
             return;
@@ -434,7 +434,8 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
                     bb.clear(); // 清空缓冲区，准备下一次接收
                 } catch (Exception e) {
                     if (isReceivingMsg) {
-                        log.info("接收信息超时", e);
+//                        忽略这个异常 不影响使用
+//                        log.info("接收信息超时", e);
                     }
                 }
             }
@@ -451,7 +452,8 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
                     Wcf.WxMsg wxMsg = messageQueue.poll(5, TimeUnit.SECONDS);
                     if (wxMsg != null) {
                         // TODO：处理消息
-                        System.out.println(wxMsg);
+                        WeChatMessage weChatMessage = Convertor.convertWxMsgToWeChatMessage(wxMsg);
+                        System.out.println(weChatMessage);
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();

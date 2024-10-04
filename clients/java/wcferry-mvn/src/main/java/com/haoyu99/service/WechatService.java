@@ -2,12 +2,9 @@ package com.haoyu99.service;
 
 import com.haoyu99.entity.ContactInfo;
 import com.haoyu99.entity.GroupContactInfo;
-import com.haoyu99.entity.MessageType;
 import com.haoyu99.entity.PersonalInfo;
-import com.haoyu99.service.processor.MessageProcessor;
 
 import java.util.List;
-import java.util.Map;
 
 /***
  * @title WechatService
@@ -27,24 +24,6 @@ public interface WechatService {
      */
 
     boolean isLogin();
-    /**
-     * 获取当前登录账号微信ID
-     * @author haoyu99
-     * @date 2024/9/28 12:47
-     * @param:
-     * @return java.lang.String
-     */
-
-    String getSelfWechatId();
-    /**
-     * 获取所有消息类型
-     * @author haoyu99
-     * @date 2024/9/28 12:50
-     * @param:
-     * @return java.util.Map<java.lang.Integer, java.lang.String>
-     */
-
-    Map<Integer, String> getMsgTypes();
 
     /**
      * 获取所有联系人信息

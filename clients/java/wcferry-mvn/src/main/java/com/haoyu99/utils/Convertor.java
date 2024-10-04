@@ -1,8 +1,6 @@
 package com.haoyu99.utils;
 
-import com.haoyu99.entity.ContactInfo;
-import com.haoyu99.entity.ContactType;
-import com.haoyu99.entity.PersonalInfo;
+import com.haoyu99.entity.*;
 import com.haoyu99.proto.Wcf;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -50,6 +48,13 @@ public class Convertor {
     }
     private boolean isOfficialUtil(String wxid) {
         return wxid.equals("fmessage") || wxid.equals("medianote") || wxid.equals("filehelper");
+    }
+
+    public static WeChatMessage convertWxMsgToWeChatMessage(Wcf.WxMsg wxMsg){
+        WeChatMessage weChatMessage = new WeChatMessage();
+        BeanUtils.copyProperties(wxMsg, weChatMessage);
+        weChatMessage.setType(MessageType.getMessageTypeFromCode(wxMsg.getType()));
+        return weChatMessage;
     }
 
 }

@@ -33,10 +33,6 @@ public class WechatController {
     @Resource
     private WechatService wechatService;
 
-    @GetMapping("/selfId")
-    public Response<String> getSelfWechatId(){
-        return Response.success(wechatService.getSelfWechatId());
-    }
     /**
      * 获取所有联系人，按照类型分类
      * @author haoyu99

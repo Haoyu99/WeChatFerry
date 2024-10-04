@@ -1,6 +1,5 @@
 package com.haoyu99.dto;
 
-import com.haoyu99.entity.MessageType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
