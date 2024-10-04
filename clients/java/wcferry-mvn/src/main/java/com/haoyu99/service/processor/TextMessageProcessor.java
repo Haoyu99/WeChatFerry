@@ -1,6 +1,6 @@
 package com.haoyu99.service.processor;
 
-import com.haoyu99.proto.Wcf;
+import com.haoyu99.entity.WeChatMessage;
 import lombok.extern.slf4j.Slf4j;
 
 /***
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TextMessageProcessor implements MessageProcessor{
     @Override
-    public void process(Wcf.WxMsg wxMsg) {
-        log.info(wxMsg.toString());
+    public void process(WeChatMessage weChatMessage) {
+
     }
 }

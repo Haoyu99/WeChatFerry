@@ -1,6 +1,6 @@
 package com.haoyu99.service.processor;
 
-import com.haoyu99.proto.Wcf;
+import com.haoyu99.entity.WeChatMessage;
 
 /***
  * @title MessageProcessor
@@ -10,5 +10,5 @@ import com.haoyu99.proto.Wcf;
  * @create 2024/9/28 17:21
  **/
 public interface MessageProcessor {
-    void process(Wcf.WxMsg wxMsg);
+    void process(WeChatMessage weChatMessage);
 }

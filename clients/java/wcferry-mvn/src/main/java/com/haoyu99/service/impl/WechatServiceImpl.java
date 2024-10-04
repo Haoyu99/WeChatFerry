@@ -451,9 +451,14 @@ public class WechatServiceImpl implements WechatService, SQLConstant {
                 try {
                     Wcf.WxMsg wxMsg = messageQueue.poll(5, TimeUnit.SECONDS);
                     if (wxMsg != null) {
-                        // TODO：处理消息
                         WeChatMessage weChatMessage = Convertor.convertWxMsgToWeChatMessage(wxMsg);
+                       //TODO: 消息入库
                         System.out.println(weChatMessage);
+                        if(weChatMessage.getType() == MessageType.TEXT){
+                            //TODO：方法路由器
+                        }else {
+                            log.info("暂时不支持的数据格式");
+                        }
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
